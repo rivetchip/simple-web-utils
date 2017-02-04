@@ -2,7 +2,8 @@
 
 /* lightbox selector */
 
-img.thumb 
+a.thumb,  img.thumb,
+a.thumb2, img.thumb2 
 {
     cursor: zoom-in;
 }

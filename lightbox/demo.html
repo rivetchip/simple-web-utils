@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lightbox Démo</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><!--ios9-->
+
+	<link rel="stylesheet" type="text/css" href="lightbox.css" />
+
+    <script type="text/javascript" src="lightbox.js"></script>
+
+</head>
+
+<body>
+
+
+
+
+<style>
+
+/* demo styles : */
+
+div.minilightbox > img.custom-borders
+{
+    border-color: #3498db;
+    border-width: 10px;
+}
+
+</style>
+
+<script>
+
+
+(function() {
+
+
+    window.addEventListener('load', function( event )
+    {
+
+        // LightBox :
+
+        var miniLightbox = MiniLightbox('.thumb', 'html');
+
+
+        // Lightbox custom :
+
+        var miniLightboxCustom = MiniLightbox('.thumb2', 'html');
+
+
+        miniLightboxCustom.onOpen(function( box, img )
+        {
+            img.classList.add('custom-borders');
+        });
+
+
+        miniLightboxCustom.onClose(function( box, img )
+        {
+            alert('Nooooo, don\'t close me! :(');
+        });
+
+    });
+
+
+
+})();
+
+
+</script>
+
+
+
+
+<h2>Normal open/close :</h2>
+
+
+<div>
+    Link to an image : 
+    <a class="thumb" href="pics/crowley.jpg">Crowley</a>
+</div>
+
+
+
+<div>
+    Thumb image :
+
+    <a class="thumb" href="pics/sideways_glance.jpg"><!-- bigger version here -->
+        <img src="pics/sideways_glance.jpg" height="100" />
+    </a>
+</div>
+
+<div>
+    Image click :
+
+    <img class="thumb" src="pics/crowley.jpg" height="100" />
+</div>
+
+<div>
+    "data-image" attribute" :
+
+    <img class="thumb" data-image="pics/sideways_glance.jpg" src="pics/crowley.jpg" height="100" />
+</div>
+
+
+
+
+<h2>Custom open/close :</h2>
+
+<div>
+    Thumb image :
+
+    <a class="thumb2" href="pics/sideways_glance.jpg"><!-- bigger version here -->
+        <img src="pics/sideways_glance.jpg" height="100" />
+    </a>
+</div>
+
+
+
+
+</body>
+</html>
