@@ -9,8 +9,8 @@ function Ajax( params )
         error: null,
         progess: null,
 
-        stringify: null,
         parse: null,
+        stringify: null,
 
         data: undefined
     };
