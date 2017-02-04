@@ -12,7 +12,7 @@ ajax.js :
 ```js
 var successHandler = function( response )
 {
-    console.log('successHandler')
+    console.log('successHandler');
 };
 
 var errorHandler = function( status )
