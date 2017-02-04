@@ -48,8 +48,10 @@ var stringify = function( data )
 
 var data = null;
 
-var options = { // each arguments are optionnal
-    method: 'GET',
+// each options are optionnal
+
+var options = {
+    method: 'GET', // default 'GET'
     url: '/file-get.php',
 
     success: successHandler,
