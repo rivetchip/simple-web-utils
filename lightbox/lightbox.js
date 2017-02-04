@@ -75,11 +75,9 @@ function MiniLightbox( selector, delegation )
 
     function onImgClick( event )
     {
-        //img.setAttribute('id', Math.random().toString(36).slice(2) );
-
         event.preventDefault();
 
-        img.setAttribute('src', this.getAttribute('data-image') || this.src);
+        img.setAttribute('src', this.getAttribute('data-image') || this.href || this.src);
 
         open();
     }
