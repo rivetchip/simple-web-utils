@@ -19,9 +19,37 @@ function MiniLightbox( selector, delegation )
         el.addEventListener('touchstart', onImgClick); // mobile
     }
 
-    /* main */
+    /* main custom */
 
-    var customOpen, customClose;
+    var customOpen = function( box, img )
+    {
+        box.classList.add('animated', 'fadeIn');
+        img.classList.add('animated', 'fadeInUp');
+    };
+    
+    var customClose = function( box, img )
+    {
+        img.classList.add('animated', 'fadeOutDown');
+
+        setTimeout(function()
+        {
+            box.classList.add('animated', 'fadeOut');
+
+            setTimeout(function()
+            {
+                box.classList.remove('animated', 'fadeOut');
+                img.classList.remove('animated', 'fadeOutDown');
+
+                box.classList.remove('open');
+
+            }, 200);
+
+        }, 200);
+
+        return false;
+    }
+
+    /* main */
 
     var opened = false;
 
@@ -142,7 +170,6 @@ function MiniLightbox( selector, delegation )
 
 
     return {
-
         onOpen:  setCustomOpen,
         onClose: setCustomClose,
     };
