@@ -12,16 +12,6 @@ console.log(t);
 
 
 
-
-
-
-
-
-
-
-
-
-
 var $ = ( function( window, document, undefined ) { // optionnal
 
     var selector, elements;
@@ -44,7 +34,7 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
 
 
-
+        // TODO: user .ptototype with priv/pub methods
 
         return {
             selector, elements,  // vars
@@ -55,6 +45,14 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
     //MiniQuery.on = on;
 
+
+    // return :
+
+    return MiniQuery;
+
+
+
+    // funcs :
 
     function on( events, callback )
     {
@@ -92,7 +90,7 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
         return this;
     }
-    
+
 
 
 
@@ -149,18 +147,19 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
 
 
-    // return :
-
-    return MiniQuery;
-
-} )( this, document );
+} )(this, document);
 
 
 
 
 
-    window.addEventListener('load', function( event )
-    {
+
+
+
+
+
+window.addEventListener('load', function( event )
+{
 
 
 
@@ -183,11 +182,7 @@ l(c)
 
 
 
-
-
-    });
-
-
+});
 
 
 
