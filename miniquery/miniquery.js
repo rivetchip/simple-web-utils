@@ -10,6 +10,10 @@ console.log(t);
 
 
 
+$ = function(q, context) {
+    return new $.fn.find(q, context);
+};
+
 
 
 var $ = ( function( window, document, undefined ) { // optionnal
@@ -32,6 +36,10 @@ var $ = ( function( window, document, undefined ) { // optionnal
         // if start # and not contain ',' -> getElementById
         // if start . or other ->querySelectorAll
 
+        // TODO: test if 'window' or 'document'
+
+
+        // TODO: return element $('ff');
 
 
         // TODO: user .ptototype with priv/pub methods
