@@ -10,13 +10,14 @@ console.log(t);
 
 
 
-$ = function(q, context) {
-    return new $.fn.find(q, context);
+var x$ = function(selector) {
+    return new $.fn.find(selector);
 };
 
 
 
-var $ = ( function( window, document, undefined ) { // optionnal
+
+var x = ( function( window, document, undefined ) { // optionnal
 
     var selector, elements;
 
@@ -40,15 +41,53 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
 
         // TODO: return element $('ff');
+    }
+
+    MiniQuery.prototype = {
+
+        on: function( events, callback )
+        {
+            loop(elements, function( element ) {
+
+                addEvent(element, events, callback);
+            });
+
+            return this;
+        },
+
+        click: function( callback )
+        {
+            return this.on('click touchstart', callback);
+        },
+
+        trigger: function( events )
+        {
+            loop(elements, function( element ) {
+
+                triggerEvent(element, events);
+            });
+
+            return this;
+        },
+
+        each: function( callback )
+        {
+            /*loop(elements, function( element ) {
+
+                callback(element);
+            });*/
+
+            loop(elements, callback);
+
+            return this;
+        },
 
 
-        // TODO: user .ptototype with priv/pub methods
 
-        return {
-            selector, elements,  // vars
-            on, trigger, click,  // events
-            each
-        }
+
+
+
+
     }
 
     //MiniQuery.on = on;
@@ -56,50 +95,9 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
     // return :
 
-    return MiniQuery;
-
-
-
-    // funcs :
-
-    function on( events, callback )
-    {
-        loop(elements, function( element ) {
-
-            addEvent(element, events, callback);
-        });
-
-        return this;
-    }
-
-    function trigger( events )
-    {
-        loop(elements, function( element ) {
-
-            triggerEvent(element, events);
-        });
-
-        return this;
-    }
-
-    function click( callback )
-    {
-        return on('click touchstart', callback);
-    }
-
-    function each( callback )
-    {
-        /*loop(elements, function( element ) {
-
-            callback(element);
-        });*/
-
-        loop(elements, callback);
-
-        return this;
-    }
-
-
+    return function(s) {
+        return new MiniQuery(s);
+    };
 
 
     // helpers :
@@ -166,28 +164,27 @@ var $ = ( function( window, document, undefined ) { // optionnal
 
 
 
+
+
+
 window.addEventListener('load', function( event )
 {
 
+    l('js:')
 
+    var c = x('.fff');
 
+    c.click(function( event ){
+        alert(event)
+    });
 
-var c = $('.fff'); 
+    //c.trigger('click')
 
-c.click(function( event ){
-    alert(event)
-});
+    /*c.each(function(element){
+        //alert(element)
+    });*/
 
-//c.trigger('click')
-
-c.each(function(element){
-    //alert(element)
-});
-
-l(c)
-
-
-
+    l(c)
 
 
 });
@@ -195,3 +192,17 @@ l(c)
 
 
 
+
+ 
+
+/*
+ $(document).ready(function(){
+
+    var c = $('.fff'); 
+
+    l('jq:')
+
+    l(c)
+});
+
+*/
