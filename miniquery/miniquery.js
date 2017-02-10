@@ -10,13 +10,6 @@ console.log(t);
 
 
 
-var x$ = function(selector) {
-    return new $.fn.find(selector);
-};
-
-
-
-
 var x = ( function( window, document, undefined ) { // optionnal
 
     var selector, elements;
@@ -72,11 +65,6 @@ var x = ( function( window, document, undefined ) { // optionnal
 
         each: function( callback )
         {
-            /*loop(elements, function( element ) {
-
-                callback(element);
-            });*/
-
             loop(elements, callback);
 
             return this;
@@ -90,13 +78,11 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     }
 
-    //MiniQuery.on = on;
-
 
     // return :
 
     return function(s) {
-        return new MiniQuery(s);
+        return new MiniQuery(s); // TODO: move outside for global
     };
 
 
