@@ -27,7 +27,9 @@ var x = ( function( window, document, undefined ) { // optionnal
 
         }
 
-        // if start # and not contain ',' -> getElementById
+
+
+        // if start # and not contain ' ' ',' '.' -> getElementById
         // if start . or other ->querySelectorAll
 
         // TODO: test if 'window' or 'document'
@@ -70,6 +72,16 @@ var x = ( function( window, document, undefined ) { // optionnal
             return this;
         },
 
+        style: function( property, value )
+        {
+            loop(elements, function( element ) {
+
+                changeStyle(element, property, value);
+            });
+
+            return this;
+        }
+
 
 
 
@@ -84,6 +96,7 @@ var x = ( function( window, document, undefined ) { // optionnal
     return function(s) {
         return new MiniQuery(s); // TODO: move outside for global
     };
+
 
 
     // helpers :
@@ -137,6 +150,28 @@ var x = ( function( window, document, undefined ) { // optionnal
         });
     }
 
+    function changeStyle( element, property, value )
+    {
+        property = cssNameToJsName(property);
+
+        element.style[property] = value;
+    }
+
+    function cssNameToJsName( property )
+    {
+        var camelCaseMatch = function( all, letter )
+        {
+		    return letter.toUpperCase();
+        };
+
+		return property.replace(/-([a-z])/g, camelCaseMatch);
+    }
+
+    function jsNameToCssName( property )
+    {
+        return property.replace(/([A-Z])/g, '-$1').toLowerCase();
+    }
+
 
 
 } )(this, document);
@@ -164,31 +199,25 @@ window.addEventListener('load', function( event )
         alert(event)
     });
 
+    c.style('-moz-appearance', 'button')
+
     //c.trigger('click')
 
     /*c.each(function(element){
         //alert(element)
     });*/
 
-    l(c)
+    /*for ( var i = 0; i < c.length; i++) {
+        l(c[i])
+    }*/
+
+    /*for( var a in c )
+    {
+        l(a)
+    }*/
+
+    //l(c)
 
 
 });
 
-
-
-
-
- 
-
-/*
- $(document).ready(function(){
-
-    var c = $('.fff'); 
-
-    l('jq:')
-
-    l(c)
-});
-
-*/
