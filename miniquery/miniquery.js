@@ -98,6 +98,26 @@ var x = ( function( window, document, undefined ) { // optionnal
             });
 
             return this;
+        },
+
+        html: function( html )
+        {
+            this.each(function( element ) {
+
+                changeHtml(element, html);
+            });
+
+            return this;
+        },
+
+        attr: function( property, value )
+        {
+            this.each(function( element ) {
+
+                changeAttr(element, property, value);
+            });
+
+            return this;
         }
 
 
@@ -193,6 +213,16 @@ var x = ( function( window, document, undefined ) { // optionnal
     function jsNameToCssName( property )
     {
         return property.replace(/([A-Z])/g, '-$1').toLowerCase();
+    }
+
+    function changeHtml( element, html )
+    {
+        element.innerHTML = html;
+    }
+
+    function changeAttr(element, property, value)
+    {
+        element.setAttribute(property, value);
     }
 
 
