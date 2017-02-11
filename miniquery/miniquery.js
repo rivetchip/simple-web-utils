@@ -12,12 +12,11 @@ console.log(t);
 
 var x = ( function( window, document, undefined ) { // optionnal
 
-    var selector, elements;
 
-
-    function MiniQuery( s )
+    function MiniQuery( selector )
     {
-        selector = s;
+    
+        var elements;
 
 
         if( !empty(selector) )
@@ -25,7 +24,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
             if( typeof selector === 'string' )
             {
-                elements = document.querySelectorAll(s); // || [];
+                elements = document.querySelectorAll(selector); // || [];
             }
 
             else if( selector instanceof NodeList || selector instanceof HTMLCollection ) 
@@ -45,6 +44,11 @@ var x = ( function( window, document, undefined ) { // optionnal
         }
 
 
+        this.selector = selector;
+
+        this.elements = elements;
+
+
 
         // if start # and not contain ' ' ',' '.' -> getElementById
         // if start . or other ->querySelectorAll
@@ -58,7 +62,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
         on: function( events, callback )
         {
-            loop(elements, function( element ) {
+            loop(this.elements, function( element ) {
 
                 addEvent(element, events, callback);
             });
@@ -73,7 +77,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
         trigger: function( events )
         {
-            loop(elements, function( element ) {
+            loop(this.elements, function( element ) {
 
                 triggerEvent(element, events);
             });
@@ -83,14 +87,14 @@ var x = ( function( window, document, undefined ) { // optionnal
 
         each: function( callback )
         {
-            loop(elements, callback);
+            loop(this.elements, callback);
 
             return this;
         },
 
         style: function( property, value )
         {
-            loop(elements, function( element ) {
+            loop(this.elements, function( element ) {
 
                 changeStyle(element, property, value);
             });
@@ -109,8 +113,8 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     // return :
 
-    return function(s) {
-        return new MiniQuery(s); // TODO: move outside for global
+    return function( selector ) {
+        return new MiniQuery(selector); // TODO: move outside for global
     };
 
 
