@@ -29,12 +29,12 @@ var x = ( function( window, document, undefined ) { // optionnal
 
             else if( selector instanceof NodeList || selector instanceof HTMLCollection ) 
             {
-                elements = selector; // element selector.nodeType === 1
+                elements = selector; // element: selector.nodeType === 1
             }
 
             else
             {
-                elements = [selector];
+                elements = [selector]; // anything, element, window or document
             }
 
         }
@@ -53,16 +53,21 @@ var x = ( function( window, document, undefined ) { // optionnal
         // if start # and not contain ' ' ',' '.' -> getElementById
         // if start . or other ->querySelectorAll
 
-        // TODO: test if 'window' or 'document'
-
         // TODO: return element $('ff');
     }
 
     MiniQuery.prototype = {
 
+        each: function( callback )
+        {
+            loop(this.elements, callback);
+
+            return this;
+        },
+
         on: function( events, callback )
         {
-            loop(this.elements, function( element ) {
+            this.each(function( element ) {
 
                 addEvent(element, events, callback);
             });
@@ -77,7 +82,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
         trigger: function( events )
         {
-            loop(this.elements, function( element ) {
+            this.each(function( element ) {
 
                 triggerEvent(element, events);
             });
@@ -85,16 +90,9 @@ var x = ( function( window, document, undefined ) { // optionnal
             return this;
         },
 
-        each: function( callback )
-        {
-            loop(this.elements, callback);
-
-            return this;
-        },
-
         style: function( property, value )
         {
-            loop(this.elements, function( element ) {
+            this.each(function( element ) {
 
                 changeStyle(element, property, value);
             });
