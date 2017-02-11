@@ -100,24 +100,30 @@ var x = ( function( window, document, undefined ) { // optionnal
             return this;
         },
 
-        html: function( html )
+        html: function( value )
         {
             this.each(function( element ) {
 
-                changeHtml(element, html);
+                setProperty({element, type: 'html', value});
             });
 
             return this;
+
+            // else:
+            //return getProperty({element, type: 'html'});
         },
 
         attr: function( property, value )
         {
             this.each(function( element ) {
 
-                changeAttr(element, property, value);
+                setProperty({element, type: 'attr', property, value});
             });
 
             return this;
+
+            // else:
+            //return getProperty({element, type: 'attr', property});
         }
 
 
@@ -215,14 +221,41 @@ var x = ( function( window, document, undefined ) { // optionnal
         return property.replace(/([A-Z])/g, '-$1').toLowerCase();
     }
 
-    function changeHtml( element, html )
+    function getProperty( option )
     {
-        element.innerHTML = html;
+        var element  = option.element;
+        var type     = option.type;
+        var property = option.property || null;
+
+        switch( type )
+        {
+            case 'attr':
+                return element.getAttribute(property);
+
+            case 'html':
+                return element.innerHTML;
+
+        }
     }
 
-    function changeAttr(element, property, value)
+    function setProperty( option )
     {
-        element.setAttribute(property, value);
+        var element  = option.element;
+        var type     = option.type;
+        var property = option.property || null;
+        var value    = option.value    || null;
+
+        switch( type )
+        {
+            case 'attr':
+                element.setAttribute(property, value);
+            break;
+
+            case 'html':
+                element.innerHTML = value;
+            break;
+
+        }
     }
 
 
@@ -250,7 +283,9 @@ x(window).on('load', function( event )
         alert(event)
     });
 
-    c.style('-moz-appearance', 'button')
+    c.style('-moz-appearance', 'button');
+
+    //c.html('myvalue');
 
     //c.trigger('click')
 
@@ -268,6 +303,8 @@ x(window).on('load', function( event )
     }*/
 
     l(c)
+
+    l(c.html())
 
 
 });
