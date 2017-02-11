@@ -138,7 +138,10 @@ var x = ( function( window, document, undefined ) { // optionnal
     // return :
 
     return function( selector ) {
-        return new MiniQuery(selector); // TODO: move outside for global
+        return new MiniQuery(selector);
+
+        // TODO: move outside for global
+        // FIXME: return undef when empty ??
     };
 
 
