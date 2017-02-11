@@ -19,12 +19,29 @@ var x = ( function( window, document, undefined ) { // optionnal
     {
         selector = s;
 
-        elements = document.querySelectorAll(s);
 
-
-        if( elements.length === 0 )
+        if( !empty(selector) )
         {
 
+            if( typeof selector === 'string' )
+            {
+                elements = document.querySelectorAll(s); // || [];
+            }
+
+            else if( selector instanceof NodeList || selector instanceof HTMLCollection ) 
+            {
+                elements = selector; // element selector.nodeType === 1
+            }
+
+            else
+            {
+                elements = [selector];
+            }
+
+        }
+        else
+        {
+            elements = [];
         }
 
 
@@ -33,7 +50,6 @@ var x = ( function( window, document, undefined ) { // optionnal
         // if start . or other ->querySelectorAll
 
         // TODO: test if 'window' or 'document'
-
 
         // TODO: return element $('ff');
     }
@@ -101,6 +117,11 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     // helpers :
 
+    function empty( value )
+    {
+        return ( [undefined, null, false, 0, '', '0'].indexOf(value) > -1 );
+    }
+
     function loop( elements, callback ) // NodeList 
     {
         for( var i = 0, l = elements.length; i < l; i++ )
@@ -161,10 +182,10 @@ var x = ( function( window, document, undefined ) { // optionnal
     {
         var camelCaseMatch = function( all, letter )
         {
-		    return letter.toUpperCase();
+            return letter.toUpperCase();
         };
 
-		return property.replace(/-([a-z])/g, camelCaseMatch);
+        return property.replace(/-([a-z])/g, camelCaseMatch);
     }
 
     function jsNameToCssName( property )
@@ -185,15 +206,13 @@ var x = ( function( window, document, undefined ) { // optionnal
 
 
 
-
-
-
-window.addEventListener('load', function( event )
+x(window).on('load', function( event )
 {
 
-    l('js:')
-
+    //var c = x(document.getElementsByClassName('fff'));
     var c = x('.fff');
+
+    //var c = x(undefined);
 
     c.click(function( event ){
         alert(event)
@@ -216,8 +235,10 @@ window.addEventListener('load', function( event )
         l(a)
     }*/
 
-    //l(c)
+    l(c)
 
 
 });
+
+
 
