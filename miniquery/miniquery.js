@@ -205,10 +205,10 @@ var x = ( function( window, document, undefined ) { // optionnal
         }
     }
 
-    function node()
+    /*function node()
     {
         return ( elements.length === 1 ? elements[0] : elements );
-    }
+    }*/
 
     // events :
 
