@@ -205,6 +205,11 @@ var x = ( function( window, document, undefined ) { // optionnal
         }
     }
 
+    function split( value )
+    {
+        return value.split(' ');
+    }
+
     /*function node()
     {
         return ( elements.length === 1 ? elements[0] : elements );
@@ -214,7 +219,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     function addEvent( element, events, callback )
     {
-        var events = events.split(' ');
+        var events = split(events);
 
         loop(events, function( type )
         {
@@ -233,7 +238,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     function triggerEvent( element, events )
     {
-        var events = events.split(' ');
+        var events = split(events);
 
         loop(events, function( type )
         {
@@ -276,7 +281,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     function addClass( element, classes )
     {
-        var classes = classes.split(' ');
+        var classes = split(classes);
 
         loop(classes, function( className )
         {
@@ -286,7 +291,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     function removeClass( element, classes )
     {
-        var classes = classes.split(' ');
+        var classes = split(classes);
 
         loop(classes, function( className )
         {
@@ -296,7 +301,7 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     function toggleClass( element, classes )
     {
-        var classes = classes.split(' ');
+        var classes = split(classes);
 
         loop(classes, function( className )
         {
