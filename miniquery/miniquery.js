@@ -38,6 +38,7 @@ var x = ( function( window, document, undefined ) { // optionnal
             }
 
         }
+
         else
         {
             elements = [];
@@ -104,7 +105,7 @@ var x = ( function( window, document, undefined ) { // optionnal
         {
             this.each(function( element ) {
 
-                setProperty({element, type: 'html', value});
+                changeHtml(element, value);
             });
 
             return this;
@@ -117,14 +118,55 @@ var x = ( function( window, document, undefined ) { // optionnal
         {
             this.each(function( element ) {
 
-                setProperty({element, type: 'attr', property, value});
+                changeAttr(element, property, value);
             });
 
             return this;
 
             // else:
             //return getProperty({element, type: 'attr', property});
-        }
+        },
+
+        class: function( classes )
+        {
+            this.each(function( element ) {
+
+                addClass(element, classes);
+            });
+
+            return this;
+        },
+
+        removeClass: function( classes )
+        {
+            this.each(function( element ) {
+
+                removeClass(element, classes);
+            });
+
+            return this;
+        },
+
+        toggle: function( className )
+        {
+            if( !empty(className) )
+            {
+                this.each(function( element ) {
+
+                    toggleClass(element, className);
+                });
+            }
+
+            else
+            {
+                this.each(function( element ) {
+
+                    toggleDisplay(element);
+                });
+            }
+
+            return this;
+        },
 
 
 
@@ -168,6 +210,8 @@ var x = ( function( window, document, undefined ) { // optionnal
         return ( elements.length === 1 ? elements[0] : elements );
     }
 
+    // events :
+
     function addEvent( element, events, callback )
     {
         var events = events.split(' ');
@@ -202,12 +246,82 @@ var x = ( function( window, document, undefined ) { // optionnal
         });
     }
 
+    // element :
+
+    function getStyle( element, property )
+    {
+        property = cssNameToJsName(property);
+
+        return element.style[property];
+    }
+
     function changeStyle( element, property, value )
     {
         property = cssNameToJsName(property);
 
         element.style[property] = value;
     }
+
+    function changeAttr( element, property, value )
+    {
+        element.setAttribute(property, value);
+    }
+
+    function changeHtml( element, value )
+    {
+        element.innerHTML = value;
+    }
+
+    // element classes :
+
+    function addClass( element, classes )
+    {
+        var classes = classes.split(' ');
+
+        loop(classes, function( className )
+        {
+            element.classList.add(className);
+        });
+    }
+
+    function removeClass( element, classes )
+    {
+        var classes = classes.split(' ');
+
+        loop(classes, function( className )
+        {
+            element.classList.remove(className);
+        });
+    }
+
+    function toggleClass( element, classes )
+    {
+        var classes = classes.split(' ');
+
+        loop(classes, function( className )
+        {
+            element.classList.toggle(className);
+        });
+    }
+
+    // visibility :
+
+    function toggleDisplay( element ) // TODO: save previous 'display' prop
+    {
+        var display = getStyle(element, 'display');
+
+        if( !empty(display) )
+        {
+            changeStyle(element, 'display', '');
+        }
+
+        else
+        {
+            changeStyle(element, 'display', 'none');
+        }
+    }
+
+    // style helpers :
 
     function cssNameToJsName( property )
     {
@@ -222,43 +336,6 @@ var x = ( function( window, document, undefined ) { // optionnal
     function jsNameToCssName( property )
     {
         return property.replace(/([A-Z])/g, '-$1').toLowerCase();
-    }
-
-    function getProperty( option )
-    {
-        var element  = option.element;
-        var type     = option.type;
-        var property = option.property || null;
-
-        switch( type )
-        {
-            case 'attr':
-                return element.getAttribute(property);
-
-            case 'html':
-                return element.innerHTML;
-
-        }
-    }
-
-    function setProperty( option )
-    {
-        var element  = option.element;
-        var type     = option.type;
-        var property = option.property || null;
-        var value    = option.value    || null;
-
-        switch( type )
-        {
-            case 'attr':
-                element.setAttribute(property, value);
-            break;
-
-            case 'html':
-                element.innerHTML = value;
-            break;
-
-        }
     }
 
 
@@ -277,16 +354,26 @@ var x = ( function( window, document, undefined ) { // optionnal
 x(window).on('load', function( event )
 {
 
+
+
+
     //var c = x(document.getElementsByClassName('fff'));
     var c = x('.fff');
+
+    var d = x('#idd');
 
     //var c = x(undefined);
 
     c.click(function( event ){
-        alert(event)
+        //alert(event)
+
+        //l('toggle')
+        //d.toggle('abc');
     });
 
-    c.style('-moz-appearance', 'button');
+
+
+    //c.style('-moz-appearance', 'button');
 
     //c.html('myvalue');
 
@@ -305,9 +392,9 @@ x(window).on('load', function( event )
         l(a)
     }*/
 
-    l(c)
+    l('c'); l(c)
 
-    l(c.html())
+    l('d'); l(d)
 
 
 });
