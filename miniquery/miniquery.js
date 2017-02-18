@@ -13,48 +13,43 @@ console.log(t);
 var x = ( function( window, document, undefined ) { // optionnal
 
 
-    function MiniQuery( selector )
+    function find( selector )
     {
-    
-        var elements;
-
 
         if( !empty(selector) )
         {
 
             if( typeof selector === 'string' )
             {
-                elements = document.querySelectorAll(selector); // || [];
+                return document.querySelectorAll(selector); // || [];
             }
 
-            else if( selector instanceof NodeList || selector instanceof HTMLCollection ) 
+            if( selector instanceof NodeList || selector instanceof HTMLCollection ) 
             {
-                elements = selector; // element: selector.nodeType === 1
+                return selector; // array, element: selector.nodeType === 1
             }
 
-            else
-            {
-                elements = [selector]; // anything, element, window or document
-            }
 
-        }
-
-        else
-        {
-            elements = [];
+            return [selector]; // anything, element, window or document
         }
 
 
-        this.selector = selector;
-
-        this.elements = elements;
-
-
+        return []; // nothing found
 
         // if start # and not contain ' ' ',' '.' -> getElementById
         // if start . or other ->querySelectorAll
 
         // TODO: return element $('ff');
+    }
+
+    function MiniQuery( selector )
+    {
+        var elements = find(selector);
+
+
+        this.selector = selector;
+
+        this.elements = elements;
     }
 
     MiniQuery.prototype = {
@@ -177,10 +172,6 @@ var x = ( function( window, document, undefined ) { // optionnal
 
             return this;
         },
-
-
-
-
 
 
 
@@ -380,8 +371,6 @@ x(window).on('load', function( event )
 {
 
 
-
-
     //var c = x(document.getElementsByClassName('fff'));
     var c = x('.fff');
 
@@ -397,8 +386,9 @@ x(window).on('load', function( event )
         //l('toggle')
         //d.toggle('abc');
 
-        c.off('click', on_click);
+        l(this)
 
+        c.off('click', on_click);
     };
 
     c.click(on_click);
