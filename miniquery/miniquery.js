@@ -76,6 +76,16 @@ var x = ( function( window, document, undefined ) { // optionnal
             return this;
         },
 
+        off: function( events, callback )
+        {
+            this.each(function( element ) {
+
+                removeEvent(element, events, callback);
+            });
+
+            return this;
+        },
+
         click: function( callback )
         {
             return this.on('click touchstart', callback);
@@ -236,6 +246,16 @@ var x = ( function( window, document, undefined ) { // optionnal
         });
     }
 
+    function removeEvent( element, events, callback )
+    {
+        var events = split(events);
+
+        loop(events, function( type )
+        {
+            element.removeEventListener(type, callback, false); // bubbling phase
+        });
+    }
+
     function triggerEvent( element, events )
     {
         var events = split(events);
@@ -369,12 +389,19 @@ x(window).on('load', function( event )
 
     //var c = x(undefined);
 
-    c.click(function( event ){
-        //alert(event)
+
+    var on_click = function( event ){
+        
+        alert(event)
 
         //l('toggle')
         //d.toggle('abc');
-    });
+
+        c.off('click', on_click);
+
+    };
+
+    c.click(on_click);
 
 
 
