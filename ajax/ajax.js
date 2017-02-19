@@ -17,7 +17,7 @@ function Ajax( params )
 
     // options :
 
-    var o = Object.assign({}, defaults, options);
+    var o = Object.assign({}, defaults, params);
 
     // main :
 
