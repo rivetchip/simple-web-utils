@@ -161,7 +161,6 @@ var x = ( function( window, document, undefined ) { // optionnal
                     toggleClass(element, className);
                 });
             }
-
             else
             {
                 this.each(function( element ) {
