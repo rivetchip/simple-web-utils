@@ -1,14 +1,4 @@
 
-
-/* lightbox selector */
-
-a.thumb,  img.thumb,
-a.thumb2, img.thumb2 
-{
-    cursor: zoom-in;
-}
-
-
 /* lightbox main style */
 
 div.minilightbox
