@@ -56,7 +56,7 @@ var options = {
 
     success: successHandler,
     error: errorHandler,
-    progess: progressHandler,
+    progess: progressHandler, // progress of download or upload
 
     // possible values : 'text', default JSON.parse/stringify
     parse: parse,
@@ -76,13 +76,14 @@ Ajax(options);
 ajax-simple.js (old) :
 ----------------
 
+Same as Ajax() above, but more simplier, less functions.
 
 ```js
 var successHandler = functionxxx;
 
 var errorHandler = functionxxx;
 
-var progressHandler = functionxxx;
+var progressHandler = functionxxx; // progress of download or upload
 
 
 // GET :
@@ -103,4 +104,3 @@ var data = {
 
 AjaxSimple('POST', '/file-post.php', successHandler, errorHandler, data, progressHandler );
 ```
-
