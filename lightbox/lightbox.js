@@ -4,29 +4,30 @@
 
 function MiniLightbox( selector, delegation )
 {
-    /* get all elements set by selector */
+    // get all elements set by selector
 
-    var elms = document.querySelectorAll(selector);
+    var elements = document.querySelectorAll(selector);
 
-    /* attribute elements click handler */
+    // attribute elements click handler
 
-    var elmslength = elms.length;
-    for( var i = 0; i < elmslength; ++i )
+    for( var i = 0, l = elements.length; i < l; i++ )
     {
-        var el = elms[i];
+        var el = elements[i];
+
+        //new Image(el.getAttribute('data-image'));
 
         el.addEventListener('click', onImgClick);
         el.addEventListener('touchstart', onImgClick); // mobile
     }
 
-    /* main custom */
+    // custom open/close
 
     var customOpen = function( box, img )
     {
         box.classList.add('animated', 'fadeIn');
         img.classList.add('animated', 'fadeInUp');
     };
-    
+
     var customClose = function( box, img )
     {
         img.classList.add('animated', 'fadeOutDown');
@@ -49,7 +50,7 @@ function MiniLightbox( selector, delegation )
         return false;
     }
 
-    /* main */
+    // main
 
     var opened = false;
 
@@ -58,11 +59,11 @@ function MiniLightbox( selector, delegation )
 
     var img = document.createElement('img');
 
-    img.onerror = onImgError;
+    //img.onerror = onImgError;
 
     box.appendChild(img);
 
-    /* append box the selected element or document */
+    // append box the selected element or document
 
     if( typeof delegation !== 'undefined' )
     {
@@ -99,7 +100,7 @@ function MiniLightbox( selector, delegation )
         close();
     }
 
-    // img.thumbnail click event
+    // img.thumbnail click event, check if image fail loading or not
 
     function onImgClick( event )
     {
@@ -107,21 +108,21 @@ function MiniLightbox( selector, delegation )
 
         img.setAttribute('src', this.getAttribute('data-image') || this.href || this.src);
 
+        img.addEventListener('load', onImgLoad);
+
+        img.addEventListener('error', onImgError);
+
+        // TODO remove events ?
+    }
+
+    function onImgLoad( event )
+    {
         open();
     }
 
     function onImgError( event )
     {
         alert('Unable to load the picture!');
-
-        close();
-    }
-
-    function onOpen( event )
-    {
-        event.preventDefault();
-
-        open();
     }
 
     function open()
