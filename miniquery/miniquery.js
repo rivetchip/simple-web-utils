@@ -192,17 +192,12 @@ var x = ( function( window, document, undefined ) { // optionnal
 
     function empty( value )
     {
-        return ( [undefined, null, false, 0, '', '0'].indexOf(value) > -1 );
+        return ( Array.isArray(value) && value.length < 1 ) || ( [undefined, null, false, 0, '', '0'].indexOf(value) > -1 );
     }
 
-    function loop( elements, callback ) // NodeList 
+    function loop( elements, callback ) 
     {
-        for( var i = 0, l = elements.length; i < l; i++ )
-        {
-            var node = elements[i];
-
-            callback(node);
-        }
+        for( var i = 0, l = elements.length; i < l; i++ ) callback(elements[i]);
     }
 
     function split( value )
