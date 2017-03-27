@@ -143,7 +143,7 @@ function Ajax( params )
 
     // helpers :
 
-    //extend, polyfill for Object.assign
+    //extend polyfill // shallow copy 
 
     function extend( target )
     {
